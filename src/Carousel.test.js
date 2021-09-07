@@ -31,3 +31,20 @@ it("works when you click on the right arrow", function() {
   expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).not.toBeInTheDocument();
   expect(queryByAltText("Photo by Pratik Patel on Unsplash")).toBeInTheDocument();
 });
+
+// left arrow - specialized test 
+it('does not work when you click the left arrow', () => {
+  const { queryByTestId, queryByAltText } = render(<Carousel />)
+  // move back in the carousel 
+  const leftArrow = queryByTestId('left-arrow') 
+  const rightArrow = queryByTestId('right-arrow') 
+  
+  // move to the right
+  fireEvent.click(rightArrow) 
+
+  // when clicking left arrow on 2nd image expect to move to first image
+  fireEvent.click(leftArrow)
+  expect(queryByAltText('Photo by Patrik Patel on Unsplash')).not.toBeInTheDocument()
+  expect(queryByAltText('Photo by Richard Pasquarella on Unsplash')).toBeInTheDocument() 
+
+})
