@@ -11,6 +11,8 @@ function Carousel(props) {
   const total = props.cardData.length;
   const goForward = () => setCardIdx(cardIdx + 1);
   const goBackward = () => setCardIdx(cardIdx - 1);
+  let leftIcon = cardIdx === 0 ? 'hidden' : ''
+  let rightIcon = cardIdx === total - 1 ? 'hidden' : '' 
 
   return (
     <div className="Carousel">
@@ -19,7 +21,8 @@ function Carousel(props) {
         <i
           // Left arrow should go left but goes forward 
           // - create function to goBack(cardIdx - 1) 
-          className="fas fa-chevron-circle-left fa-2x"
+          // - add class for leftIcon that hides if image at 1
+          className={`fas fa-chevron-circle-left fa-2x ${leftIcon}`}
           onClick={goBackward}
           data-testid="left-arrow"
         />
@@ -30,7 +33,8 @@ function Carousel(props) {
           totalNum={total}
         />
         <i
-          className="fas fa-chevron-circle-right fa-2x"
+          // - add class for rightIcon that hides if image at 3
+          className={`fas fa-chevron-circle-right fa-2x ${rightIcon}`}
           onClick={goForward}
           data-testid="right-arrow"
         />

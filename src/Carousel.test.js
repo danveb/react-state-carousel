@@ -46,5 +46,25 @@ it('does not work when you click the left arrow', () => {
   fireEvent.click(leftArrow)
   expect(queryByAltText('Photo by Patrik Patel on Unsplash')).not.toBeInTheDocument()
   expect(queryByAltText('Photo by Richard Pasquarella on Unsplash')).toBeInTheDocument() 
+})
 
+// exhaust image array - specialized test
+it('arrow is not showing on far left and far right', () => {
+  const { getByTestId } = render(<Carousel />) 
+  const leftArrow = getByTestId('left-arrow')
+  const rightArrow = getByTestId('right-arrow')
+
+  // 1st image
+  expect(leftArrow).toHaveClass('fas fa-chevron-circle-left fa-2x hidden')
+  expect(rightArrow).not.toHaveClass('fas fa-chevron-circle-right fa-2x hidden')
+
+  // 2nd image
+  fireEvent.click(rightArrow) 
+  expect(leftArrow).not.toHaveClass('fas fa-chevron-circle-left fa-2x hidden') 
+  expect(rightArrow).not.toHaveClass('fas fa-chevron-circle-right fa-2x hidden') 
+
+  // 3rd image
+  fireEvent.click(rightArrow) 
+  expect(leftArrow).not.toHaveClass('fas fa-chevron-circle-left fa-2x hidden') 
+  expect(rightArrow).toHaveClass('fas fa-chevron-circle-right fa-2x hidden')
 })
