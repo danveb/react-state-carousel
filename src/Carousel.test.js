@@ -2,6 +2,20 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 
+// smoke test -> tests for rendering Component 
+it('should render without crashing', () => {
+  // render Component 
+  render(<Carousel />) 
+})
+
+// snapshot test -> tests for snapshot of DOM 
+it('should match snapshot', () => {
+  // destructure {asFragment} from Object 
+  // return snapshot
+  const { asFragment } = render(<Carousel />)
+  expect(asFragment()).toMatchSnapshot(); 
+})
+
 it("works when you click on the right arrow", function() {
   const { queryByTestId, queryByAltText } = render(<Carousel />);
 
